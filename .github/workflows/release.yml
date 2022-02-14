@@ -31,9 +31,6 @@ jobs:
         run: |
           echo svu next: $(svu next)
           echo svu current $(svu current)
-          # if [[ $(svu next) == $(svu current) ]]; then
-          #   echo no need to release - tags not incremented. svu next: $(svu next) svu current $(svu current)
-          # fi
 
       - name: Tag new version
         run: |
