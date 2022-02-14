@@ -36,6 +36,11 @@ jobs:
         run: |
           echo svu next: $(svu next)
           echo svu current $(svu current)
+          if [ $(svu next) == $(svu current) ]; then
+            echo "tag match"
+          else
+            echo "tag mismatch"
+          fi
           echo "skip-release=true" >> $GITHUB_ENV
 
       - name: Tag new version
