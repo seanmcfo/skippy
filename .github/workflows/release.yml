@@ -32,7 +32,8 @@ jobs:
           if [[ $(svu next) == $(svu current) ]]; then
             echo no need to release - tags not incremented. svu next: $(svu next) svu current $(svu current)
           fi
-          
+          exit 0
+
       - name: Tag new version
         run: |
           git tag $(svu next)
