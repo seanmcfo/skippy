@@ -37,7 +37,7 @@ jobs:
           git tag $(svu next)
           git push --tags
 
-        # only run if commit msg is correct
-        - name: check for release
+      # only run if commit msg is correct
+      - name: check for release
         run: |
           echo deploying....
