@@ -34,13 +34,12 @@ jobs:
       # check if we need to bump
       - name: check for release
         run: |
-          svu --version
           echo svu next: $(svu next)
           echo svu current $(svu current)
-          echo "skip=true" >> $GITHUB_ENV
+          echo "skip-release=true" >> $GITHUB_ENV
 
       - name: Tag new version
-        if: ${{ env.skip == 'false' }}
+        if: ${{ env.skip-release == 'false' }}
         run: |
           echo ${{ env.skip }}
           git tag $(svu next)
@@ -48,5 +47,6 @@ jobs:
 
       # only run if commit msg is correct
       - name: check for release
+        if: ${{ env.skip-release == 'false' }}
         run: |
           echo deploying....
