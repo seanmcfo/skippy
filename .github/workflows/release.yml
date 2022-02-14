@@ -23,7 +23,7 @@ jobs:
         run: |
           echo 'deb [trusted=yes] https://apt.fury.io/caarlos0/ /' | sudo tee /etc/apt/sources.list.d/caarlos0.list
           sudo apt update
-          sudo apt install svu=1.8.0
+          sudo apt install svu
 
       # check if we need to bump
       - name: check for release
