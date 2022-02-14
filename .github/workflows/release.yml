@@ -33,13 +33,14 @@ jobs:
 
       # check if we need to bump
       - name: check for release
-        #if: $(svu next) == $(svu current)
         run: |
           svu --version
           echo svu next: $(svu next)
           echo svu current $(svu current)
+          echo "skip=true" >> $GITHUB_ENV
 
       - name: Tag new version
+        if: ${{ env.skip == 'true' }}
         run: |
           git tag $(svu next)
           git push --tags
