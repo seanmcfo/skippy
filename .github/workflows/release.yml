@@ -42,6 +42,7 @@ jobs:
       - name: Tag new version
         if: ${{ env.skip == 'true' }}
         run: |
+          echo ${{ env.skip }}
           git tag $(svu next)
           git push --tags
 
