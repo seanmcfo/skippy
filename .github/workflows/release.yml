@@ -1,0 +1,43 @@
+name: release
+
+on:
+  push:
+    branches:
+      - 'main'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install svu
+        run: |
+          echo 'deb [trusted=yes] https://apt.fury.io/caarlos0/ /' | sudo tee /etc/apt/sources.list.d/caarlos0.list
+          sudo apt update
+          sudo apt install svu
+
+      # check if we need to bump
+      - name: check for release
+        if: $(svu next) == $(svu current)
+        run: |
+          echo no need to release - tags not incremented. svu next: $(svu next) svu current $(svu current)
+          exit 0
+
+      - name: Tag new version
+        run: |
+          git tag $(svu next)
+          git push --tags
+
+        # only run if commit msg is correct
+        - name: check for release
+        run: |
+          echo deploying....
