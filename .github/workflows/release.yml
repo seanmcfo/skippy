@@ -37,10 +37,10 @@ jobs:
           svu --version
           echo svu next: $(svu next)
           echo svu current $(svu current)
-          echo "skip=false" >> $GITHUB_ENV
+          echo "skip=true" >> $GITHUB_ENV
 
       - name: Tag new version
-        if: ${{ env.skip == 'true' }}
+        if: ${{ env.skip == 'false' }}
         run: |
           echo ${{ env.skip }}
           git tag $(svu next)
