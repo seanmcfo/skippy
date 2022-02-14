@@ -27,10 +27,12 @@ jobs:
 
       # check if we need to bump
       - name: check for release
-        if: $(svu next) == $(svu current)
+        #if: $(svu next) == $(svu current)
         run: |
-          echo no need to release - tags not incremented. svu next: $(svu next) svu current $(svu current)
-
+          if [[ $(svu next) == $(svu current) ]]; then
+            echo no need to release - tags not incremented. svu next: $(svu next) svu current $(svu current)
+          fi
+          
       - name: Tag new version
         run: |
           git tag $(svu next)
