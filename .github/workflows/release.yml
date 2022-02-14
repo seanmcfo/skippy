@@ -29,6 +29,7 @@ jobs:
       - name: check for release
         #if: $(svu next) == $(svu current)
         run: |
+          svu --version
           echo svu next: $(svu next)
           echo svu current $(svu current)
 
